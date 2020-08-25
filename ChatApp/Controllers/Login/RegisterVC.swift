@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterVC: UIViewController {
     private let scrollView:UIScrollView = {
@@ -96,9 +97,12 @@ class RegisterVC: UIViewController {
     
     private let imageView:UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
-        imageView.tintColor = .gray
+        imageView.image = UIImage(systemName: "person.circle")
+        imageView.tintColor = .white
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.backgroundColor = UIColor.lightGray.cgColor
         return imageView
     }()
     
@@ -145,6 +149,9 @@ class RegisterVC: UIViewController {
         scrollView.frame = view.bounds
         let size = scrollView.width / 3
         imageView.frame = CGRect(x: (scrollView.width - size) / 2, y: 20, width: size, height: size)
+        
+        imageView.layer.cornerRadius = imageView.width / 2.0
+        
         firstNameField.frame = CGRect(x: 30, y: imageView.bottom + 10, width: scrollView.width - 60, height: 50)
         lastNameField.frame = CGRect(x: 30, y: firstNameField.bottom + 10, width: scrollView.width - 60, height: 50)
         emailField.frame = CGRect(x: 30, y: lastNameField.bottom + 10, width: scrollView.width - 60, height: 50)
@@ -165,6 +172,16 @@ class RegisterVC: UIViewController {
         }
         
         //Firebase login
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) {[weak self] (authResult, error) in
+            guard let strongSelf = self else {return}
+            guard let result = authResult, error == nil else {
+                print("Error creating user")
+                return}
+            
+            let user = result.user
+            print("Created User: \(user.email)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        }
         
     }
     
@@ -176,7 +193,7 @@ class RegisterVC: UIViewController {
     }
     
     @objc private func didTapChangeProfilePic(){
-        print("Change pic")
+        presentPhotoActionSheet()
     }
     
     @objc private func didTapRegister(){
@@ -202,5 +219,47 @@ extension RegisterVC:UITextFieldDelegate{
         
         return true
     }
+}
+
+extension RegisterVC:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func presentPhotoActionSheet(){
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "How would you like to select a picture", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: {  [weak self]_ in
+            self?.presentCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Choose Photo", style: .default, handler: {[weak self] _ in
+            self?.presentPhotoPicker()
+        }))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func presentCamera(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func presentPhotoPicker(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {return}
+        self.imageView.image = selectedImage
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
