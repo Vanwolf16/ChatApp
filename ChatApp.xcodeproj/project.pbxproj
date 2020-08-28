@@ -21,6 +21,7 @@
 		B47E89092491862500C82E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B47E89082491862500C82E68 /* Assets.xcassets */; };
 		B47E890C2491862500C82E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B47E890A2491862500C82E68 /* LaunchScreen.storyboard */; };
 		B47E8914249186FC00C82E68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47E8913249186FC00C82E68 /* GoogleService-Info.plist */; };
+		B4CAC43124F5D2300065AB8D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CAC43024F5D2300065AB8D /* DatabaseManager.swift */; };
 		FBF8571ACFB0F6EFA42A9085 /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 667A55B3753067F2A6D39410 /* Pods_ChatApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		B47E890B2491862500C82E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B47E890D2491862500C82E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B47E8913249186FC00C82E68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B4CAC43024F5D2300065AB8D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		D8E5999A69D68D293C49D1CE /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 				B47E88FF2491862400C82E68 /* AppDelegate.swift */,
 				B47E89012491862400C82E68 /* SceneDelegate.swift */,
 				B445028D24F44D6700B6D55B /* Extensions.swift */,
+				B4CAC43024F5D2300065AB8D /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B445028724F448AB00B6D55B /* NewConversationVC.swift in Sources */,
+				B4CAC43124F5D2300065AB8D /* DatabaseManager.swift in Sources */,
 				B445028524F4487E00B6D55B /* VideoPlayerVC.swift in Sources */,
 				B445028924F448BD00B6D55B /* ProfileVC.swift in Sources */,
 				B47E89002491862400C82E68 /* AppDelegate.swift in Sources */,

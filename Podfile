@@ -11,5 +11,6 @@ target 'ChatApp' do
   pod 'Firebase/Functions'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
+  pod 'FBSDKLoginKit'
 
 end
